@@ -22,6 +22,10 @@ public class Matrix {
         this.columnCount = columnCount;
     }
     
+    /**
+     * Создаёт единичную матрицу
+     * @param rowCount Количечство строк  
+    */
     public static Matrix createUnitMatrix(int rowCount){
         Matrix m = new Matrix(rowCount, rowCount);
         double[][] A = m.getElements();
@@ -31,6 +35,7 @@ public class Matrix {
         
         return m;
     }
+    
     
     public Matrix multiply(Matrix secondMatrix) throws MatrixSizeException{
         double[][] A, B;
@@ -58,11 +63,17 @@ public class Matrix {
                     }
                 }
         }
-        
-       
+ 
         return res;
     }
 
+    /**
+     * Возвращяет эквивалентны ли по содержимому две матрицы
+    */
+    public boolean isExqualMatrix(Matrix secondMatrix){
+        return elements.equals(secondMatrix.getElements());
+    }
+    
     @Override
     public String toString(){
         String s = "";
