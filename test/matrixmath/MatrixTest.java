@@ -44,12 +44,19 @@ public class MatrixTest {
     @Test
     public void testCreateUnitMatrix() {
         System.out.println("createUnitMatrix");
-        int rowCount = 0;
-        Matrix expResult = null;
+        
+        int rowCount = 3;
+        
+        double[][] E = {
+            {1, 0, 0},
+            {0, 1, 0},
+            {0, 0, 1},
+        }; 
+        
+        Matrix expResult = new Matrix(E);
         Matrix result = Matrix.createUnitMatrix(rowCount);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        assertTrue(result.isEqualMatrix(expResult));
     }
 
     /**
@@ -58,13 +65,34 @@ public class MatrixTest {
     @Test
     public void testMultiply() throws Exception {
         System.out.println("multiply");
-        Matrix secondMatrix = null;
-        Matrix instance = null;
-        Matrix expResult = null;
+        
+        double[ ][ ] A = { 
+            {2, -2}, 
+            {4, 3}, 
+            {5, 0} 
+        };
+        
+        double[ ][ ] B = { 
+            {4, 5, -3}, 
+            {-2, 3, 2}
+        };
+        
+        //Expected result
+        double [][] C = { 
+            {12, 4, -10}, 
+            {10, 29, -6},
+            {20, 25, -15}
+        };
+        
+        
+        Matrix instance = new Matrix(A);
+        Matrix secondMatrix = new Matrix(B);
+        
+        Matrix expResult = new Matrix(C);
+        
         Matrix result = instance.multiply(secondMatrix);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result.isEqualMatrix(expResult));
+        
     }
 
     /**
@@ -81,59 +109,6 @@ public class MatrixTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of getElements method, of class Matrix.
-     */
-    @Test
-    public void testGetElements() {
-        System.out.println("getElements");
-        Matrix instance = null;
-        double[][] expResult = null;
-        double[][] result = instance.getElements();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setElements method, of class Matrix.
-     */
-    @Test
-    public void testSetElements() {
-        System.out.println("setElements");
-        double[][] elements = null;
-        Matrix instance = null;
-        instance.setElements(elements);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getRowCount method, of class Matrix.
-     */
-    @Test
-    public void testGetRowCount() {
-        System.out.println("getRowCount");
-        Matrix instance = null;
-        int expResult = 0;
-        int result = instance.getRowCount();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getColumnCount method, of class Matrix.
-     */
-    @Test
-    public void testGetColumnCount() {
-        System.out.println("getColumnCount");
-        Matrix instance = null;
-        int expResult = 0;
-        int result = instance.getColumnCount();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+   
     
 }

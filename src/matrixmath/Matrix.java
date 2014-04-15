@@ -6,6 +6,7 @@
 
 package matrixmath;
 
+import java.util.Arrays;
 import matrixmath.exception.MatrixSizeException;
 
 /**
@@ -20,8 +21,15 @@ public class Matrix {
     public Matrix (int rowCount, int columnCount){
         this.rowCount = rowCount;
         this.columnCount = columnCount;
+
+        elements = new double[rowCount][columnCount];
+        
     }
-    
+    public Matrix(double [][] initArr) {
+        this.rowCount = initArr.length;
+        this.columnCount = initArr[0].length;
+        elements = initArr;
+    }
     /**
      * Создаёт единичную матрицу
      * @param rowCount Количечство строк  
@@ -63,15 +71,32 @@ public class Matrix {
                     }
                 }
         }
- 
+
         return res;
     }
 
     /**
      * Возвращяет эквивалентны ли по содержимому две матрицы
     */
-    public boolean isExqualMatrix(Matrix secondMatrix){
-        return elements.equals(secondMatrix.getElements());
+    public boolean isEqualMatrix(Matrix secondMatrix){
+        
+        //return 
+        int r2 = secondMatrix.getRowCount();
+        int c2 = secondMatrix.getColumnCount();
+        int r1 = this.getRowCount();
+        
+        if ( r1 != r2 || this.getColumnCount() != c2){
+            return false;
+        }
+        
+        double[][] A = this.getElements();
+        double[][] B = secondMatrix.getElements();
+        
+        for(int i = 0; i < r1; i++){
+            if (!Arrays.equals(A[i], B[i])) return false; 
+        }
+        
+        return true;
     }
     
     @Override
