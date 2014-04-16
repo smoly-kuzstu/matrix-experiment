@@ -6,6 +6,7 @@
 
 package matrixmath;
 
+import matrixmath.exception.MatrixSizeException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,7 +19,30 @@ import static org.junit.Assert.*;
  * @author Andrey
  */
 public class MatrixTest {
-    
+    double[][] A = { 
+            {2, -2}, 
+            {4, 3}, 
+            {5, 0} 
+        };
+        
+    double [][ ] B = { 
+            {4, 5, -3}, 
+            {-2, 3, 2}
+        };
+        
+   //Expected result
+    double [][] C = { 
+            {12, 4, -10}, 
+            {10, 29, -6},
+            {20, 25, -15}
+    };
+   
+    double[][] E = {
+            {1, 0, 0},
+            {0, 1, 0},
+            {0, 0, 1},
+    }; 
+   
     public MatrixTest() {
     }
     
@@ -46,12 +70,7 @@ public class MatrixTest {
         System.out.println("createUnitMatrix");
         
         int rowCount = 3;
-        
-        double[][] E = {
-            {1, 0, 0},
-            {0, 1, 0},
-            {0, 0, 1},
-        }; 
+
         
         Matrix expResult = new Matrix(E);
         Matrix result = Matrix.createUnitMatrix(rowCount);
@@ -62,35 +81,22 @@ public class MatrixTest {
     /**
      * Test of multiply method, of class Matrix.
      */
-    @Test
+    @Test(timeout=1000)
     public void testMultiply() throws Exception {
         System.out.println("multiply");
-        
-        double[ ][ ] A = { 
-            {2, -2}, 
-            {4, 3}, 
-            {5, 0} 
-        };
-        
-        double[ ][ ] B = { 
-            {4, 5, -3}, 
-            {-2, 3, 2}
-        };
-        
-        //Expected result
-        double [][] C = { 
-            {12, 4, -10}, 
-            {10, 29, -6},
-            {20, 25, -15}
-        };
-        
-        
+
         Matrix instance = new Matrix(A);
         Matrix secondMatrix = new Matrix(B);
         
         Matrix expResult = new Matrix(C);
         
         Matrix result = instance.multiply(secondMatrix);
+        assertTrue(result.isEqualMatrix(expResult));
+        
+                 
+        Matrix unitMatrix = new Matrix(E);
+ 
+        result = expResult.multiply(unitMatrix);
         assertTrue(result.isEqualMatrix(expResult));
         
     }
@@ -108,7 +114,31 @@ public class MatrixTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+    
+    @Test
+    public void testGetColumnCount() {
+        Matrix instance = new Matrix(A);
+        assertEquals(instance.getRowCount(), 3);
+    }
+    
+    @Test
+    public void testGetRowCount() {
+        Matrix instance = new Matrix(A);
+        assertEquals(instance.getRowCount(), 2);
+    }
+    
+    @Test(expected=MatrixSizeException.class)
+    public void checkExpectedSizeException() throws MatrixSizeException{
+  
+       double [][] D = { 
+            {4, 5, -3, 8}
+       };
 
-   
+       Matrix instance = new Matrix(A);
+       Matrix secondMatrix = new Matrix(D);
+        
+       instance.multiply(secondMatrix);
+  
+    }
     
 }

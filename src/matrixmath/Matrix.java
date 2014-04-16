@@ -55,6 +55,7 @@ public class Matrix {
         int n = this.getColumnCount();
         
         int k = secondMatrix.getColumnCount();
+        //assert (n == secondMatrix.getRowCount()) : "ColCount(A) should be = RowCount(B)";
         //ColCount(A) should be = RowCount(B)
         if ( n != secondMatrix.getRowCount() ){
             throw new MatrixSizeException();
